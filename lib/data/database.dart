@@ -1,6 +1,8 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'dart:io' as io;
+import 'package:app_fashion_e_commerce/models/products_models.dart';
+import 'package:app_fashion_e_commerce/models/categories_models.dart';
 
 // Hello! If you read this, you should know what the inspiration of this code, this is ythe place where I inspired,  check this link below: https://www.youtube.com/watch?v=UpKrhZ0Hppk
 
@@ -36,16 +38,37 @@ class EcommerceDatabase {
       filePath,
     ); //It get the file path and the ecommerce.db, create a new path object and the next step is the open of database.
 
-   // Step 6 - Open the Database and calling the function _createDB
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    // Step 6 - Open the Database and calling the function _createDB
+    return await openDatabase(path, version: 2, onCreate: _createDB);
   }
 
-//Step 7 - The method _createDB
+  //Step 7 - The method _createDB -> create a table of database, a table of the products class and categories class
 
-Future _createDB (Database db, int version) async{
-     
-}
+  Future _createDB(Database db, int version) async {
+    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final nomeType = 'STRING NOT NULL';
+    final precoType = 'DOUBLE NOT NULL';
+    final tamanhoType = 'STRING NOT NULL';
 
+    final id2Type = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    final tipoType = 'STRING NOT NULL';
 
+    await db.execute('''CREATE TABLE $tableProducts(
+         ${ProductsField.id} $idType,
+         ${ProductsField.nome} $nomeType,
+         ${ProductsField.preco} $precoType,
+         ${ProductsField.tamanho} $tamanhoType,
+       )''');
 
+    await db.execute(('''CREATE TABLE $tableCategories(
+       ${CategoriesFields.id} $id2Type,
+       ${CategoriesFields.tipo} $tipoType,
+    )'''));
+  }
+
+  // Step 8 - Close to Database
+  Future close() async {
+    final db = await instance.database;
+    db.close();
+  }
 }

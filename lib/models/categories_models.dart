@@ -1,23 +1,27 @@
+// Create a name of table
+final String tableCategories = 'categories';
+
+// Create a field (campo) of the class attributes
+
+class CategoriesFields {
+  static final String id = '_id';
+  static final String tipo = '_tipo';
+}
+
 class CategoriesModels {
   final int? id;
   final String tipo;
 
-  CategoriesModels({
-    required this.id,
-    required this.tipo,
-    });
+  CategoriesModels({required this.id, required this.tipo});
 
-// Converts the Dart object to a Map (used when saving/updating in the database).
+  // Converts the Dart object to a Map (used when saving/updating in the database).
   Map<String, dynamic> toMap() {
     return <String, dynamic>{"id": id, "tipo": tipo};
   }
 
-// Converts a Map from the database into a Dart object (used when reading data).
+  // Converts a Map from the database into a Dart object (used when reading data).
   factory CategoriesModels.fromMap(Map<String, dynamic> map) {
-    return CategoriesModels(
-      id: map['id'], 
-      tipo: map['tipo'],
-      );
+    return CategoriesModels(id: map['id'], tipo: map['tipo']);
   }
 }
 

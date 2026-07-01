@@ -1,9 +1,19 @@
+// Create a name of table
+final String tableProducts = 'products';
+
+//Create a field (campo) of the class attributes
+class ProductsField {
+  static final String id = '_id';
+  static final String nome = '_nome';
+  static final String preco = '_preco';
+  static final String tamanho = '_tamanho';
+}
+
 class ProductsModels {
   final int? id;
   final String nome;
   final double preco;
   final String tamanho;
-  
 
   ProductsModels({
     required this.id,
@@ -12,17 +22,17 @@ class ProductsModels {
     required this.tamanho,
   });
 
-// Converte o Objeto Dart para um Mapa (usado ao Salvar/Atualizar no Banco)
+  // Converts the Dart object to a Map (used when saving/updating in the database).
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       "id": id,
       "nome": nome,
       "preco": preco,
       "tamanho": tamanho,
-     
     };
   }
-// Converte um Mapa vindo do Banco para um Objeto Dart (usado ao Ler dados)
+
+  // Converts a Map from the database into a Dart object (used when reading data).
   factory ProductsModels.fromMap(Map<String, dynamic> map) {
     return ProductsModels(
       id: map['id'],
@@ -31,6 +41,8 @@ class ProductsModels {
       tamanho: map['tamanho'],
     );
   }
+
+  //
 }
 // click na imagem -> Janela com informações sobre o produto e um botão de add ao carrinho
 // CREATE -> ADD COMPRA
