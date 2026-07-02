@@ -212,6 +212,5 @@ class HomePageFashionState extends State<HomePageFashion> {
   }
 }
 
-// Adicionar o gridview.builder -> ok.
-// Adicionar o caminho das 4 imagens
-// criar a classe dos produtos
+// Inserir botão de add ao carrinho -> adiciona aos favoritos
+// Excluir lista de favoritos

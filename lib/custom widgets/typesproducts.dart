@@ -27,6 +27,13 @@ class Typesproducts extends StatelessWidget {
             Text('GG'),
           ],
         ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+        ElevatedButton(onPressed: () {}, child: Text("Comprar")),
+        IconButton(onPressed:() {}, icon: Icon(Icons.add_box_rounded))
+          ]
+        ),
       ],
     ),
     );
