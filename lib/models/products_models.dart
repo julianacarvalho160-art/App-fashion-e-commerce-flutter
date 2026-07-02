@@ -1,14 +1,6 @@
 // Create a name of table
 final String tableProducts = 'products';
 
-//Create a field (campo) of the class attributes
-class ProductsField {
-  static final String id = '_id';
-  static final String nome = '_nome';
-  static final String preco = '_preco';
-  static final String tamanho = '_tamanho';
-}
-
 class ProductsModels {
   final int? id;
   final String nome;
@@ -41,14 +33,4 @@ class ProductsModels {
       tamanho: map['tamanho'],
     );
   }
-
-  //
 }
-// click na imagem -> Janela com informações sobre o produto e um botão de add ao carrinho
-// CREATE -> ADD COMPRA
-// UPDATE -> LISTA DE COMPRAS
-// REMOVE -> REMOVER PRODUTO DA LISTA
-
-// https://docs.flutter.dev/cookbook/persistence/sqlite
-
-// https://github.com/amritms/simple-note-flutter/blob/master/lib/mynote.dart

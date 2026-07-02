@@ -1,6 +1,5 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
-import 'dart:io' as io;
 import 'package:app_fashion_e_commerce/models/products_models.dart';
 import 'package:app_fashion_e_commerce/models/categories_models.dart';
 
@@ -45,25 +44,83 @@ class EcommerceDatabase {
   //Step 7 - The method _createDB -> create a table of database, a table of the products class and categories class
 
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final nomeType = 'STRING NOT NULL';
-    final precoType = 'DOUBLE NOT NULL';
-    final tamanhoType = 'STRING NOT NULL';
-
-    final id2Type = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final tipoType = 'STRING NOT NULL';
-
-    await db.execute('''CREATE TABLE $tableProducts(
-         ${ProductsField.id} $idType,
-         ${ProductsField.nome} $nomeType,
-         ${ProductsField.preco} $precoType,
-         ${ProductsField.tamanho} $tamanhoType,
+    await db.execute('''CREATE TABLE tableProducts(
+         id INTEGER PRIMARY KEY AUTOINCREMENT,
+         nome STRING NOT NULL,
+         preco DOUBLE NOT NULL
+         tamanho STRING NOT NULL
        )''');
 
-    await db.execute(('''CREATE TABLE $tableCategories(
-       ${CategoriesFields.id} $id2Type,
-       ${CategoriesFields.tipo} $tipoType,
+    await db.execute(('''CREATE TABLE tableCategories(
+       id INTEGER PRIMARY KEY AUTOINCREMENT ,
+      tipo STRING NOT NULL,
     )'''));
+  }
+
+  // Step 8  ->> Data operations in database
+  Future<Database> get db async => await database;
+  // Operations for the class Products
+
+  //Create
+  Future<int> insertProduct(ProductsModels products) async {
+    final db = await instance.db;
+    return await db.insert('tableProducts', products.toMap());
+  }
+
+  // Read
+  Future<List<ProductsModels>> seeProducts() async {
+    final db = await instance.db;
+    final result = await db.query('tableProducts');
+    return result.map((map) => ProductsModels.fromMap(map)).toList();
+  }
+
+  // Update
+  Future<int> updateProducts(ProductsModels products) async {
+    final db = await instance.db;
+    return await db.update(
+      'tableProducts',
+      products.toMap(),
+      where: 'id = ?',
+      whereArgs: [products.id],
+    );
+  }
+
+  // Delete
+  Future<int> deleteProducts(int id) async {
+    final db = await instance.db;
+    return await db.delete('tableProducts', where: 'id = ?', whereArgs: [id]);
+  }
+
+  // Operations for the class Categories
+
+  //Create
+  Future<int> insertCategories(CategoriesModels categories) async {
+    final db = await instance.db;
+    return await db.insert('tableCategories', categories.toMap());
+  }
+
+  // Read
+  Future<List<CategoriesModels>> seeCategories() async {
+    final db = await instance.db;
+    final results = await db.query('tableCategories');
+    return results.map((map) => CategoriesModels.fromMap(map)).toList();
+  }
+
+  // Update
+  Future<int> updateCategories(CategoriesModels categories) async {
+    final db = await instance.db;
+    return await db.update(
+      'tableProducts',
+      categories.toMap(),
+      where: 'id = ?',
+      whereArgs: [categories.id],
+    );
+  }
+
+  // Delete
+  Future<int> deleteCategories(int id) async {
+    final db = await instance.db;
+    return await db.delete('tableCategories', where: 'id = ?', whereArgs: [id]);
   }
 
   // Step 8 - Close to Database

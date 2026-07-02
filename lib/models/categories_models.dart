@@ -32,3 +32,5 @@ class CategoriesModels {
 
 // This is better then what other
 //https://medium.com/@juricavoda/building-a-crud-app-with-flutter-step-by-step-guide-1755982e504e
+
+// https://medium.com/@skazhar525/mastering-local-data-storage-in-flutter-with-sqflite-full-crud-tutorial-9c79585d5420
